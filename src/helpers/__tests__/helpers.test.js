@@ -2,6 +2,8 @@ import * as helpers from '../helpers';
 import '@testing-library/jest-dom/extend-expect';
 import * as rtl from '@testing-library/react';
 
+afterEach(rtl.cleanup)
+
 jest.mock('uuid', () => {
   return () => '123';
 });
@@ -31,7 +33,7 @@ describe('sum', () => {
 describe('multiply', () => {
   // write tests! <================================================
   it('it can multiply two positive numbers', () => {
-    expect(helpers.multiply(2,3).toBe(6))
+    expect(helpers.multiply(2,3)).toBe(6)
   });
   it('throws if fed something which is not a number', () => {
     expect(() => helpers.multiply('1', '2')).toThrow();
@@ -39,7 +41,7 @@ describe('multiply', () => {
     expect(() => helpers.multiply('1', true)).toThrow();
   });
   it('it can multiply two negative numbers', () => {
-    expect(helpers.multiply(-2,-3).toBe(6))
+    expect(helpers.multiply(-2,-3)).toBe(6)
   });
 });
 
