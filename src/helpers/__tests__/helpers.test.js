@@ -1,4 +1,8 @@
 import * as helpers from '../helpers';
+import '@testing-library/jest-dom/extend-expect';
+import * as rtl from '@testing-library/react';
+
+afterEach(rtl.cleanup)
 
 jest.mock('uuid', () => {
   return () => '123';
@@ -28,6 +32,17 @@ describe('sum', () => {
 
 describe('multiply', () => {
   // write tests! <================================================
+  it('it can multiply two positive numbers', () => {
+    expect(helpers.multiply(2,3)).toBe(6)
+  });
+  it('throws if fed something which is not a number', () => {
+    expect(() => helpers.multiply('1', '2')).toThrow();
+    expect(() => helpers.multiply('1', 2)).toThrow();
+    expect(() => helpers.multiply('1', true)).toThrow();
+  });
+  it('it can multiply two negative numbers', () => {
+    expect(helpers.multiply(-2,-3)).toBe(6)
+  });
 });
 
 describe('personMaker', () => {
@@ -41,4 +56,13 @@ describe('personMaker', () => {
   });
 
   // write more tests! <===========================================
+  it('makes a person with name and age regardless of the argument type', () => {
+    expect(helpers.personMaker('john', '56'))
+      .toMatchObject({
+        id: '123',
+        name: 'john',
+        age: '56',
+      });
+  });
+
 });
